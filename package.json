@@ -4,6 +4,16 @@
   "description": "A simple API to work with events in the browser.",
   "license": "MIT",
   "author": "Jack and Amy Steam <jacksteamdev@gmail.com>",
+  "repository": "bumble-ext/stream",
+  "keywords": [
+    "bumble",
+    "stream",
+    "bumblestream",
+    "events",
+    "map",
+    "filter",
+    "forEach"
+  ],
   "main": "build/bundle-cjs.js",
   "module": "build/bundle-esm.js",
   "scripts": {
