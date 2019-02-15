@@ -1,27 +1,26 @@
 import { listenTo } from './listen-to'
 
 /**
- * Resolves the first time the event occurs.
+ * Resolves the first time the event occurs. The event listener is removed after the Promise resolves.
+ *
+ * @returns {Promise<eventResults>} Resolves with whatever the event passes the callback.
  *
  * @example
- * const eventPromise = new EventPromise(chrome.someEvent)
+ * const eventPromise = EventPromise(chrome.someEvent)
  *
- * @example
- * const eventPromise = EventPromise.for(chrome.someEvent)
+ * eventPromise.then(() => {
+ *   // This will only be called
+ *   // the first time the event occurs.
+ * })
  */
-export class EventPromise extends Promise {
-  constructor(...args) {
-    super((resolve, reject) => {
-      try {
-        listenTo(...args)
-          .forEach(resolve)
-          .catch(reject)
-          .clear(() => true)
-      } catch (error) {
-        reject(error)
-      }
-    })
-  }
-}
-
-EventPromise.for = (...args) => new EventPromise(...args)
+export const EventPromise = (...args) =>
+  new Promise((resolve, reject) => {
+    try {
+      listenTo(...args)
+        .forEach(resolve)
+        .catch(reject)
+        .clear(() => true)
+    } catch (error) {
+      reject(error)
+    }
+  })
