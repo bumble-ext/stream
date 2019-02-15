@@ -12,6 +12,7 @@ export { EventPromise } from './event-promise'
 
 export { debounce } from './timers/debounce'
 export { interval } from './timers/interval'
+// Throttle is not ready
 export { throttle } from './timers/throttle'
 export { timeout } from './timers/timeout'
 
