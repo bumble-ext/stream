@@ -1,0 +1,42 @@
+{
+  "name": "@bumble/stream",
+  "version": "0.0.1",
+  "description": "A simple API to work with events in the browser.",
+  "license": "MIT",
+  "author": "Jack and Amy Steam <jacksteamdev@gmail.com>",
+  "main": "build/bundle-cjs.js",
+  "module": "build/bundle-esm.js",
+  "scripts": {
+    "build": "run-p build:*",
+    "build:rollup": "rollup -c",
+    "docs": "run-s docs:build docs:open",
+    "docs:build": "documentation build src/main.js -f html -o docs --config documentation.yml",
+    "docs:lint": "documentation lint src/main.js",
+    "docs:open": "google-chrome docs/index.html --new-window",
+    "docs:serve": "google-chrome && cd docs && browser-sync start --server --files './*' --index 'index.html'",
+    "docs:watch": "yarn docs:build --watch",
+    "start": "run-p start:*",
+    "start:docs": "run-p docs:watch docs:serve",
+    "start:rollup": "rollup -c -w",
+    "test": "jest",
+    "postversion": "git push && npm publish"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "ms": "^2.1.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.3.1",
+    "browser-sync": "^2.26.3",
+    "documentation": "^9.1.1",
+    "documentation-devseed-theme": "^0.1.4",
+    "eslint": "^5.11.0",
+    "eslint-plugin-jsdoc": "^4.0.1",
+    "jest": "^24.1.0",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^0.68.0",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  }
+}
