@@ -2,7 +2,7 @@
 /*              BUMBLE EVENT STREAM             */
 /* ============================================ */
 
-export { EventStream } from './event-stream'
+export { BumbleStream } from './event-stream'
 export { listenTo } from './listen-to'
 export { EventPromise } from './event-promise'
 

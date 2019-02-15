@@ -1,27 +1,4 @@
 toc:
-  - name: Chrome API with Promises
-    description: |
-      Use the callback based Chrome API with promises.
-  - browserAction
-  - message
-  - notify
-  - pages
-  - getBackgroundPage
-  - options
-  - proxy
-  - storageLocal
-  - storageSync
-  - tabs
-
-  - name: Bumble Store
-    description: |
-      Manage state from the background page.
-  - BumbleStore
-  - onStateChange
-  - StateSelector
-  - StateAction
-  - initStoreCallback
-
   - name: The Bumble Event Stream API
     description: |
       Compose callbacks using a familiar method chaining pattern.

@@ -5,14 +5,14 @@ import * as wrappers from './wrappers/main'
  *
  * The attach function should return a clear function: a function that removes the listener.
  *
- * @function EventStream
+ * @function BumbleStream
  * @param {Function} callback - Pass to an event listener.
  * @param {directCallback} callback.direct - Use to directly configure a stream.
- * @returns {EventStreamChain} An object with familiar method names.
+ * @returns {BumbleStreamChain} An object with familiar method names.
  *
  * @example
  * const listenToChromeEvent = (eventObject) => {
- *   return EventStream(callback => {
+ *   return BumbleStream(callback => {
  *     // Add the composed callback to the event listeners.
  *     eventObject.addListener(callback)
  *     // Return a function to remove the callback
@@ -25,7 +25,7 @@ import * as wrappers from './wrappers/main'
  * function interval(time) {
  *   const milliseconds = ms(time)
  *
- *   return EventStream(callback => {
+ *   return BumbleStream(callback => {
  *     // Create counter
  *     let count = 0
  *
@@ -40,7 +40,7 @@ import * as wrappers from './wrappers/main'
  *   })
  * }
  */
-export function EventStream(attachFn, ...args) {
+export function BumbleStream(attachFn, ...args) {
   let composedFn = x => x
 
   // used by composeClear()
@@ -51,10 +51,10 @@ export function EventStream(attachFn, ...args) {
   /**
    * Map changes result to the return value of mapFn.
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function map
    * @param {Function} fn - The return value is passed to the next method.
-   * @returns {EventStreamChain}
+   * @returns {BumbleStreamChain}
    *
    * @example
    * interval('10s')
@@ -70,10 +70,10 @@ export function EventStream(attachFn, ...args) {
   /**
    * Use for effects. ForEach does not pass its return value to the next function.
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function forEach
    * @param {Function} fn - The return value is ignored.
-   * @returns {methods} EventStream methods object.
+   * @returns {methods} BumbleStream methods object.
    *
    * @example
    * interval('10s')
@@ -94,10 +94,10 @@ export function EventStream(attachFn, ...args) {
    * and returns the current value
    * if the predicate returns false.
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function filter
    * @param {Function} predFn - Predicate.
-   * @returns {Object} EventStream methods object.
+   * @returns {Object} BumbleStream methods object.
    *
    * @example
    * interval('10s')
@@ -117,10 +117,10 @@ export function EventStream(attachFn, ...args) {
    *
    * It calls the function returned by attachFn.
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function clear
    * @param {Function} [predFn] - Predicate.
-   * @returns {Object} EventStream methods object.
+   * @returns {Object} BumbleStream methods object.
    *
    * @example
    * interval('10s')
@@ -153,10 +153,10 @@ export function EventStream(attachFn, ...args) {
    * Catch could cause a call to filter to be skipped.
    * If this happens, the chain could begin to execute again.
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function catch
    * @param {Function} fn - Called when an error is encountered.
-   * @returns {Object} EventStream methods object.
+   * @returns {Object} BumbleStream methods object.
    *
    * @example
    * interval('10s')
@@ -173,13 +173,13 @@ export function EventStream(attachFn, ...args) {
 
   /**
    * Map a function that returns a Promise.
-   * Composes a new EventStream callback
+   * Composes a new BumbleStream callback
    * to pass to the returned Promise.then().
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function await
    * @param {Function} asyncFn - Async Function.
-   * @returns {Object} The EventStreamChain object.
+   * @returns {Object} The BumbleStreamChain object.
    *
    * @example
    * listenTo(window, 'onload')
@@ -196,10 +196,10 @@ export function EventStream(attachFn, ...args) {
    * Evaluates a function that returns a predicate Promise
    * and stops further execution if the Promise resolves to false.
    *
-   * @memberof EventStreamChain
+   * @memberof BumbleStreamChain
    * @function awaitFilter
    * @param {function(*): boolean} asyncPredFn - Async Predicate Function.
-   * @returns {Object} The EventStreamChain object.
+   * @returns {Object} The BumbleStreamChain object.
    *
    * @example
    * listenTo(window, 'onload')
@@ -213,11 +213,11 @@ export function EventStream(attachFn, ...args) {
   const awaitFilter = composeAsync(wrappers.awaitFilter)
 
   /**
-   * The EventStreamChain composes a callback using
+   * The BumbleStreamChain composes a callback using
    * the familiar JS Array higher order function chain pattern.
    *
    * @member {Object}
-   * @namespace EventStreamChain
+   * @namespace BumbleStreamChain
    */
   const methods = {
     map,
@@ -250,11 +250,11 @@ export function EventStream(attachFn, ...args) {
     if (error) {
       if (error instanceof Promise) {
         Promise.resolve(error).then(error => {
-          console.error('Uncaught async error in EventStream')
+          console.error('Uncaught async error in BumbleStream')
           console.error(error)
         })
       } else {
-        console.error('Uncaught error in EventStream')
+        console.error('Uncaught error in BumbleStream')
         console.error(error)
       }
     } else {
@@ -273,10 +273,10 @@ export function EventStream(attachFn, ...args) {
     }
   }
 
-  /* Goes into EventStream */
+  /* Goes into BumbleStream */
   function composeAsync(wrapper) {
     return asyncFn =>
-      EventStream(callback => {
+      BumbleStream(callback => {
         const newFn = wrapper(callback, asyncFn)
 
         const oldFn = composedFn
@@ -288,17 +288,17 @@ export function EventStream(attachFn, ...args) {
   }
 }
 /**
- * Use to directly configure the EventStream.
+ * Use to directly configure the BumbleStream.
  * Used internally by the async method.
  *
  * @callback directCallback
- * @param {Object} payload - The value EventStream uses internally.
+ * @param {Object} payload - The value BumbleStream uses internally.
  * @param {any} payload.result - The value to pass to the next method callback.
  * @param {Array} payload.args - An array to pass to each method callback.
  * @param {boolean} payload.use - Will cause method callback to skip if false.
  *
  * @example
- * EventStream(({direct}) => {
+ * BumbleStream(({direct}) => {
  *   // Immediately execute composed callback
  *   direct({
  *     result: 123,

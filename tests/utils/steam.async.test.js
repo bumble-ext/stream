@@ -1,4 +1,4 @@
-import { EventStream, timeout } from '../../src/main'
+import { BumbleStream, timeout } from '../../src/main'
 import { attachMock, mockEvent } from '../mock.event'
 
 afterEach(() => {
@@ -11,7 +11,7 @@ describe('async stream', () => {
     test('basic awaitMap', done => {
       const asyncMock = jest.fn(async x => x)
 
-      EventStream(attachMock)
+      BumbleStream(attachMock)
         .awaitMap(asyncMock)
         .map(() => {
           expect(asyncMock).toBeCalledTimes(1)
@@ -42,7 +42,7 @@ describe('async stream', () => {
         throw 'boom!'
       })
 
-      EventStream(attachMock)
+      BumbleStream(attachMock)
         .map(bomb)
         .await(awaitMock)
         .catch(catchMock)
@@ -69,7 +69,7 @@ describe('async stream', () => {
         throw 'boom!'
       })
 
-      EventStream(attachMock)
+      BumbleStream(attachMock)
         .await(awaitMock)
         .map(bomb)
 

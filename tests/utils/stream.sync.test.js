@@ -1,4 +1,4 @@
-import { EventStream } from '../../src/main'
+import { BumbleStream } from '../../src/main'
 import { mockEvent, attachMock } from '../mock.event'
 
 afterEach(() => {
@@ -6,11 +6,11 @@ afterEach(() => {
   jest.clearAllMocks()
 })
 
-describe('basic EventStream', () => {
-  test('EventStream setup', () => {
+describe('basic BumbleStream', () => {
+  test('BumbleStream setup', () => {
     const mapMock = jest.fn()
 
-    EventStream(attachMock).map(mapMock)
+    BumbleStream(attachMock).map(mapMock)
 
     expect(attachMock).toBeCalled()
     expect(mockEvent.listeners.length).toBe(1)
@@ -22,7 +22,7 @@ describe('map method', () => {
   test('basic map', () => {
     const mapMock = jest.fn()
 
-    EventStream(attachMock).map(mapMock)
+    BumbleStream(attachMock).map(mapMock)
     mockEvent.fireEvent(1)
 
     expect(mapMock).toBeCalled()
@@ -34,7 +34,7 @@ describe('map method', () => {
     const mapMock1 = jest.fn(add)
     const mapMock2 = jest.fn(add)
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .map(mapMock1)
       .map(mapMock2)
 
@@ -52,7 +52,7 @@ describe('forEach method', () => {
   test('basic forEach', () => {
     const forEachMock = jest.fn()
 
-    EventStream(attachMock).forEach(forEachMock)
+    BumbleStream(attachMock).forEach(forEachMock)
     mockEvent.fireEvent(1)
 
     expect(forEachMock).toBeCalled()
@@ -64,7 +64,7 @@ describe('forEach method', () => {
     const forEachMock1 = jest.fn(add)
     const forEachMock2 = jest.fn(add)
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .forEach(forEachMock1)
       .forEach(forEachMock2)
 
@@ -82,7 +82,7 @@ describe('filter method', () => {
   test('basic filter', () => {
     const filterMock = jest.fn(() => true)
 
-    EventStream(attachMock).filter(filterMock)
+    BumbleStream(attachMock).filter(filterMock)
 
     mockEvent.fireEvent(1)
 
@@ -94,7 +94,7 @@ describe('filter method', () => {
     const mapMock = jest.fn()
     const filterMock = jest.fn(() => true)
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .filter(filterMock)
       .map(mapMock)
 
@@ -111,7 +111,7 @@ describe('filter method', () => {
     const mapMock = jest.fn()
     const filterMock = jest.fn(() => false)
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .filter(filterMock)
       .map(mapMock)
 
@@ -129,7 +129,7 @@ describe('filter method', () => {
     const mapMock1 = jest.fn()
     const mapMock2 = jest.fn()
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .filter(filterMock1)
       .filter(filterMock2)
       .map(mapMock1)
@@ -162,7 +162,7 @@ describe('catch method', () => {
   test('basic catch', () => {
     const catchMock = jest.fn()
 
-    EventStream(attachMock).catch(catchMock)
+    BumbleStream(attachMock).catch(catchMock)
 
     mockEvent.fireEvent(1)
 
@@ -176,7 +176,7 @@ describe('catch method', () => {
     const catchMock = jest.fn(() => 2)
     const after = jest.fn()
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .map(bomb)
       .catch(catchMock)
       .map(after)
@@ -198,7 +198,7 @@ describe('catch method', () => {
     const catchMock = jest.fn(() => 2)
     const after = jest.fn()
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .map(before)
       .catch(catchMock)
       .map(after)
@@ -223,7 +223,7 @@ describe('catch method', () => {
     const catchMock2 = jest.fn()
     const after = jest.fn()
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .map(before)
       .catch(catchMock1)
       .map(bomb)
@@ -254,7 +254,7 @@ describe('catch method', () => {
     const catchMock = jest.fn(() => 2)
     const after = jest.fn()
 
-    EventStream(attachMock)
+    BumbleStream(attachMock)
       .map(bomb)
       .filter(filterMock)
       .catch(catchMock)
@@ -278,7 +278,7 @@ describe('catch method', () => {
       throw 'boom!'
     })
 
-    EventStream(attachMock).map(bomb)
+    BumbleStream(attachMock).map(bomb)
 
     mockEvent.fireEvent(1)
 

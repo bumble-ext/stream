@@ -1,12 +1,12 @@
 import ms from 'ms'
-import { EventStream } from '../event-stream'
+import { BumbleStream } from '../event-stream'
 
 /**
- * Mappable setInterval. Uses EventStream internally.
+ * Mappable setInterval. Uses BumbleStream internally.
  *
  * @function interval
  * @param {string} time - Represents time between intervals.
- * @returns {Object} Returns a EventStreamChain object.
+ * @returns {Object} Returns a BumbleStreamChain object.
  *
  * @example
  * interval('10s').forEach((x) => {
@@ -16,7 +16,7 @@ import { EventStream } from '../event-stream'
 export function interval(time) {
   const milliseconds = typeof time === 'string' ? ms(time) : time
 
-  return EventStream(callback => {
+  return BumbleStream(callback => {
     // Create counter
     let count = 0
 

@@ -1,4 +1,4 @@
-import { EventStream } from './event-stream'
+import { BumbleStream } from './event-stream'
 
 /**
  * Listen to one or multiple events on a DOM Element.
@@ -7,7 +7,7 @@ import { EventStream } from './event-stream'
  * @function listenToChromeEvent
  * @param {Object} eventObject - A DOM Element.
  * @param {...any} [args] - Additional arguments to spread into Event.addListener().
- * @returns {Object} Returns a EventStream object.
+ * @returns {Object} Returns a BumbleStream object.
  *
  * @example
  * const myDiv = document.querySelector('#mydiv')
@@ -20,7 +20,7 @@ import { EventStream } from './event-stream'
  *   .map((event) => {})
  */
 const listenToChromeEvent = (eventObject, ...args) => {
-  return EventStream(callback => {
+  return BumbleStream(callback => {
     eventObject.addListener(callback, ...args)
     return () => eventObject.removeListener(callback)
   })
@@ -33,7 +33,7 @@ const listenToChromeEvent = (eventObject, ...args) => {
  * @function listenToDomEvent
  * @param {Object} target - A DOM Element.
  * @param {string|Array<string>} event - An event string or an array of event strings.
- * @returns {Object} Returns a EventStream object.
+ * @returns {Object} Returns a BumbleStream object.
  *
  * @example
  * const myDiv = document.querySelector('#mydiv')
@@ -46,7 +46,7 @@ const listenToChromeEvent = (eventObject, ...args) => {
  *   .map((event) => {})
  */
 const listenToDomEvent = (target, event) => {
-  return EventStream(callback => {
+  return BumbleStream(callback => {
     if (Array.isArray(event)) {
       event.forEach(event =>
         target.addEventListener(event, callback)
@@ -64,12 +64,12 @@ const listenToDomEvent = (target, event) => {
 }
 
 /**
- * Map responses to events. Uses EventStream internally.
+ * Map responses to events. Uses BumbleStream internally.
  *
  * @function listenTo
  * @param {Object} target - Either Chrome API Event or DOM Element.
  * @param  {...any} [args] - Event string or additional arguments.
- * @returns {Object} Returns a EventStream object.
+ * @returns {Object} Returns a BumbleStream object.
  *
  * @example
  * listenTo(chrome.runtime.onMessage).map(({greeting}) => {
