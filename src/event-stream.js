@@ -1,4 +1,4 @@
-import wrappers from './wrappers/main'
+import * as wrappers from './wrappers/main'
 
 /**
  * A configurable API with familiar methods that compose a callback function that can be passed to an event listener.
@@ -227,7 +227,7 @@ export function EventStream(attachFn, ...args) {
     clear,
     await: awaitMap,
     awaitMap,
-    awaitFilter
+    awaitFilter,
   }
 
   return methods
@@ -237,8 +237,8 @@ export function EventStream(attachFn, ...args) {
       composedFn({
         result: args[0],
         args,
-        use: true
-      })
+        use: true,
+      }),
     )
   }
 
