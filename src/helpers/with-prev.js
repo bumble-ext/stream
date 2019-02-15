@@ -128,5 +128,5 @@ withPrev.args = withPrevArgs
 export const composeHasChanged = fn =>
   flow(
     fn,
-    withPrev(not(isEqual))
+    withPrev(not(isEqual)),
   )
