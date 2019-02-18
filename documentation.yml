@@ -1,7 +1,6 @@
 toc:
   - name: The Bumble Event Stream API
-    description: |
-      Compose callbacks using a familiar method chaining pattern.
+    file: docs-head.md
   - BumbleStream
   - directCallback
   - BumbleStreamChain
