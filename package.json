@@ -4,7 +4,7 @@
   "description": "A simple API to work with events in the browser.",
   "license": "MIT",
   "author": "Jack and Amy Steam <jacksteamdev@gmail.com>",
-  "repository": "bumble-ext/stream",
+  "repository": "bumble-org/stream",
   "keywords": [
     "bumble",
     "stream",
@@ -22,7 +22,7 @@
     "docs": "run-s docs:build docs:open",
     "docs:build": "documentation build src/main.js -f md -o readme.md --markdown-toc false --config documentation.yml",
     "docs:lint": "documentation lint src/main.js",
-    "docs:watch": "yarn docs:build --watch",
+    "docs:watch": "npm run docs:build --watch",
     "start": "run-p start:*",
     "start:docs": "run-p docs:watch",
     "start:rollup": "rollup -c -w",
@@ -35,9 +35,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.3.1",
-    "browser-sync": "^2.26.3",
     "documentation": "^9.1.1",
-    "documentation-devseed-theme": "^0.1.4",
     "eslint": "^5.11.0",
     "eslint-plugin-jsdoc": "^4.0.1",
     "jest": "^24.1.0",
@@ -46,5 +44,8 @@
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-resolve": "^4.0.0"
-  }
+  },
+  "files": [
+    "/build"
+  ]
 }
